@@ -6,13 +6,15 @@
   <TABLES>
     <TABLE NAME="moodlefolder" COMMENT="users subscribed to powerfolder integration and their courses">
       <FIELDS>
+		<FIELD NAME="id" TYPE="int" LENGTH="10" SEQUENCE="true" NOTNULL="true" />
 		<FIELD NAME="username" TYPE="char" LENGTH="100" NOTNULL="true" />
 		<FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" />
       </FIELDS>
       <KEYS>
-      	<KEY NAME="p_username_courseid" TYPE="primary" FIELDS="username, courseid" />
-		<KEY NAME="fk_username" TYPE="foreign" FIELDS="username" REFTABLE="user" REFFIELDS="username" />
-		<KEY NAME="fk_courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id" />
+	<KEY NAME="p_id" TYPE="primary" FIELDS="id" />
+      	<KEY NAME="p_username_courseid" TYPE="unique" FIELDS="username, courseid" />
+	<KEY NAME="fk_username" TYPE="foreign" FIELDS="username" REFTABLE="user" REFFIELDS="username" />
+	<KEY NAME="fk_courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id" />
       </KEYS>
     </TABLE>
   </TABLES>

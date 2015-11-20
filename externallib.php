@@ -53,8 +53,14 @@ function CallAPI($method, $url, $data = false)
     return $result;
 }
 class block_moodlefolder_external extends external_api {
-	static $REST_URL = get_config('block_moodlefolder', 'server_addr');
 
+    public static function get_api_url() {
+        $api_url = get_config('block_moodlefolder', 'server_addr');
+        if (substr($api_url, -1) != '/') {
+            $api_url .= '/';
+        }
+        return $api_url;
+    }
 
     /**
      * Returns description of method parameters
@@ -74,15 +80,17 @@ class block_moodlefolder_external extends external_api {
      */
     public static function subscribe($courseid) {
         global $USER, $DB;
+	$REST_URL = block_moodlefolder_external::get_api_url();
+
         $params = self::validate_parameters(self::subscribe_parameters(),
                 array('courseid' => $courseid));
 
         $context = context_user::instance($USER->id);
         self::validate_context($context);
 
-        $result = CallAPI('POST', block_moodlefolder_external::$REST_URL . 'addUserToCourse', array('courseid' => $courseid, 'userid' => $USER->username));
+        $result = CallAPI('POST', $REST_URL . 'addUserToCourse', array('courseid' => $courseid, 'userid' => $USER->username));
         $DB->insert_record('moodlefolder', array('username' => $USER->username, 'courseid' => $params['courseid']), false);
-        return 'User ' . $USER->username . ' was added to course ' . $params['courseid'] . '. Result: ' . $result . '.';
+        return 'User ' . $USER->username . ' was added to course ' . $params['courseid'] . '. Result: ' . $result . '. API URL: ' . $REST_URL;
     }
     /**
      * Returns description of method result value
@@ -112,11 +120,12 @@ class block_moodlefolder_external extends external_api {
         global $USER, $DB;
         $params = self::validate_parameters(self::unsubscribe_parameters(),
                 array('courseid' => $courseid));
+	$REST_URL = block_moodlefolder_external::get_api_url();
 
         $context = context_user::instance($USER->id);
         self::validate_context($context);
 
-        $result = CallAPI('POST', block_moodlefolder_external::$REST_URL . 'removeUserFromCourse', array('courseid' => $courseid, 'userid' => $USER->username));
+        $result = CallAPI('POST', $REST_URL . 'removeUserFromCourse', array('courseid' => $courseid, 'userid' => $USER->username));
 
         $DB->delete_records('moodlefolder', array('username' => $USER->username, 'courseid' => $params['courseid']), false);
         return 'User ' . $USER->username . ' was removed from course ' . $params['courseid'] . '. Result: ' . $result ;
