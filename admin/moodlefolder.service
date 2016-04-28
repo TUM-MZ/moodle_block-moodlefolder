@@ -1,0 +1,12 @@
+[Unit]
+Description=MoodleFolder
+
+[Service]
+TimeoutStartSec=0
+User=medienzentrum
+Restart=always
+ExecStart=/usr/bin/nodejs /home/medienzentrum/moodlefolder_server/index.js
+ExecStop=/usr/bin/pkill node
+StandardOutput=syslog
+Environment=NODE_ENV=production
+
