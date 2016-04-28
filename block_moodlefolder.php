@@ -17,9 +17,9 @@ class block_moodlefolder extends block_base {
     	$PAGE->requires->js_call_amd('block_moodlefolder/moodlefolder', 'init');
 	    $subscribed = $DB->get_records('moodlefolder', array('username' => $USER->username, 'courseid' => $COURSE->id));
 	    if (count($subscribed) != 0) {
-	    	$this->content->text = html_writer::tag('button', "Unsubscribe", array('type' => 'button', 'class' => 'block_moodlefolder_unsubscribe', 'id' => 'moodlefolder_button'));
+	    	$this->content->text = html_writer::tag('button', "Unsubscribe", array('type' => 'submit', 'class' => 'block_moodlefolder_unsubscribe', 'id' => 'moodlefolder_button'));
 	    } else {
-	    	$this->content->text = html_writer::tag('button', "Subscribe", array('type' => 'button', 'class' => 'block_moodlefolder_subscribe', 'id' => 'moodlefolder_button'));
+	    	$this->content->text = html_writer::tag('button', "Subscribe", array('type' => 'submit', 'class' => 'block_moodlefolder_subscribe', 'id' => 'moodlefolder_button'));
 	    }
 	    return $this->content;
   	}
