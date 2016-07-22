@@ -71,9 +71,6 @@ class block_moodlefolder_external extends external_api {
                 array('courseid' => new external_value(PARAM_INT, 'The course the current user should subscribe to'))
         );
     }
-    public static function subscribe_is_allowed_from_ajax() {
-    	return true;
-    }
     /**
      * Returns welcome message
      * @return string welcome message
@@ -108,9 +105,6 @@ class block_moodlefolder_external extends external_api {
         return new external_function_parameters(
                 array('courseid' => new external_value(PARAM_INT, 'The course the current user should unsubscribe from'))
         );
-    }
-    public static function unsubscribe_is_allowed_from_ajax() {
-    	return true;
     }
     /**
      * Returns welcome message

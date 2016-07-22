@@ -26,6 +26,7 @@ $functions = array(
                 'classpath'   => 'blocks/moodlefolder/externallib.php',
                 'description' => 'Subscribe user to the current course',
                 'type'        => 'write',
+                'ajax'        => 'true',
         ),
         'block_moodlefolder_unsubscribe' => array(
                 'classname'   => 'block_moodlefolder_external',
@@ -33,6 +34,7 @@ $functions = array(
                 'classpath'   => 'blocks/moodlefolder/externallib.php',
                 'description' => 'Unsubscribe user from the current course',
                 'type'        => 'write',
+                'ajax'        => 'true',
         )
 );
 // We define the services to install as pre-build services. A pre-build service is not editable by administrator.
